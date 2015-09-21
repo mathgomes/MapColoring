@@ -5,6 +5,7 @@
 #include <sstream>
 #include <vector>
 #include <utility>
+#include <fstream>
 using namespace std;
 
 bool isCommaOrSpaceOrDot(char c) {
@@ -48,7 +49,7 @@ bool** allocateGraph(int vertexNum) {
 void addEdge(bool **Graph, int source, int destiny) {
 
     Graph[source][destiny] = true;
-    Graph[destiny][source] = true;
+    //Graph[destiny][source] = true;
 }
 void printfGraph(bool **Graph, int vertexNum) {
     cout << "\n";
@@ -63,11 +64,12 @@ void printfGraph(bool **Graph, int vertexNum) {
 
 int main() {
 
+    ifstream myfile;
+    myfile.open ("brasil.in");
 
     int countriesNumber;
     char heuristic;
-    cin >> countriesNumber;
-    cin >> heuristic;
+    cin >> countriesNumber >> heuristic;
 
     string line;
     pair<string,int> mainState;
@@ -81,9 +83,9 @@ int main() {
     bool **Country = allocateGraph(countriesNumber);
 
     cin.ignore();
-    while( statesRead < countriesNumber ) {
 
-        getline(cin,line);
+    while( getline(cin,line) ) {
+
         ss1 << line;
         getline(ss1, get<0>(mainState), ':');
         get<0>(mainState).erase(
@@ -106,7 +108,6 @@ int main() {
             ss2.clear();
         }
         ss1.clear();
-
     }
 
 
@@ -123,8 +124,8 @@ int main() {
 
         break;
     case 'b':
-
         // backtracking + forward checking
+
         break;
     case 'c':
         // backtracking + fc + mrv
@@ -138,6 +139,5 @@ int main() {
     }
 
 
-    system("PAUSE");
     return 0;
 }
